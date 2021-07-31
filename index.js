@@ -4,6 +4,7 @@ const Campsite = require('./models/campsite');
 const url = 'mongodb://localhost:27017/nucampsite';
 const connect = mongoose.connect(url, {
     useCreateIndex: true,
+    useFindAndModify: false,
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
@@ -14,11 +15,15 @@ connect.then(() => {
 
     Campsite.create({
         name: 'React Lake Campground',
-        description: 'reactlakecampground test inside of node-mongoose folder'
+        description: 'test inside of node-mongoose folder'
     })
     .then(campsite => {
         console.log(campsite);
-        return Campsite.find();
+        return Campsite.findByIdAndUpdate(campsite._id, {
+            $set: { description: 'Updated Test Document' }
+        },{
+            new:true
+        });
     })
     .then(campsites => {
         console.log(campsites);
