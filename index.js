@@ -25,8 +25,19 @@ connect.then(() => {
             new:true
         });
     })
-    .then(campsites => {
-        console.log(campsites);
+    .then(campsite => {
+        console.log(campsite);
+
+        campsite.comments.push({
+            rating: 4,
+            text: 'I apologize for my behavior. I am a nicer man now.',
+            author: 'Ash Catchem'
+        });
+
+        return campsite.save();
+    })
+    .then(campsite => {
+        console.log(campsite);
         return Campsite.deleteMany();
     })
     .then(() => {
