@@ -12,12 +12,10 @@ connect.then(() => {
 
     console.log('Connected correctly to server');
 
-    const newCampsite = new Campsite({
+    Campsite.create({
         name: 'React Lake Campground',
         description: 'reactlakecampground test inside of node-mongoose folder'
-    });
-
-    newCampsite.save()
+    })
     .then(campsite => {
         console.log(campsite);
         return Campsite.find();
